@@ -11,6 +11,6 @@
 
 Kelas : XII-RPL1
 
-No Urut : 03-13-23-2-33
+No Urut : 03-13-23-33
 
 Nama Sekolah: SMK Telkom Malang
