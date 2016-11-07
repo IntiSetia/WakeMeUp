@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-public class tambahactivity extends AppCompatActivity {
+public class tambahActivity extends AppCompatActivity {
 
     static final int TIME_DIALOG_ID = 1;
     // variables to save user selected date and time
@@ -38,7 +38,7 @@ public class tambahactivity extends AppCompatActivity {
         }
     };
 
-    public tambahactivity() {
+    public tambahActivity() {
         // Assign current Date and Time Values to Variables
         final Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
@@ -66,7 +66,7 @@ public class tambahactivity extends AppCompatActivity {
             public void onClick(View v) {
                 String a = etWaktu.getText().toString();
                 Toast.makeText(getApplicationContext(), "Alarm Akan Berbunyi pada jam " + a, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(tambahactivity.this, Main2Activity.class);
+                Intent intent = new Intent(tambahActivity.this, Main2Activity.class);
                 startActivity(intent);
             }
         });
