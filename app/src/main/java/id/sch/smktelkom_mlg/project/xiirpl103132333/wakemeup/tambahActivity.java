@@ -66,7 +66,7 @@ public class tambahActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String a = etWaktu.getText().toString();
                 Toast.makeText(getApplicationContext(), "Alarm Akan Berbunyi pada jam " + a, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(tambahActivity.this, Main2Activity.class);
+                Intent intent = new Intent(tambahActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
