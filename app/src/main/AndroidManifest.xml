@@ -17,7 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".tambahActivity"></activity>
+        <activity android:name=".tambahActivity" />
+        <activity android:name=".HitungActivity" />
+        <activity android:name=".Hitung2Activity"></activity>
     </application>
 
 </manifest>
