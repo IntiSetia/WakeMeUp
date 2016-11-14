@@ -51,7 +51,10 @@ public class tambahActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tambah);
         btnWaktu = (Button) findViewById(R.id.buttonWaktu);
         etWaktu = (EditText) findViewById(R.id.editTextWaktu);
-
+        int Hournow = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        final int jamz = Hournow - hour;
+        int Minnow = Calendar.getInstance().get(Calendar.MINUTE);
+        final int minz = Minnow - mMinute;
         // Set ClickListener on btnSelectTime
         btnWaktu.setOnClickListener(new View.OnClickListener() {
 
@@ -65,7 +68,7 @@ public class tambahActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String a = etWaktu.getText().toString();
-                Toast.makeText(getApplicationContext(), "Alarm Akan Berbunyi pada jam " + a, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Alarm Akan Berbunyi " + mHour + "Jam " + minz + " Menit", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(tambahActivity.this, MainActivity.class);
                 startActivity(intent);
             }
