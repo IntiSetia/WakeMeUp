@@ -20,13 +20,16 @@ public class tambahActivity extends AppCompatActivity {
     static final int TIME_DIALOG_ID = 1;
     // variables to save user selected date and time
     public int hour, minute;
-    Button btnWaktu;
-    EditText etWaktu;
-    TimePicker alarm_timepicker;
+    Button btnHari;
+    EditText etWaktu, etMemo, etNada, etMethod;
+    TimePickerDialog alarm_timepicker;
+    TimePicker myTimePicker;
     AlarmManager alarm_manager;
     Context context;
+    Calendar calendar;
     // declare  the variables to Show/Set the date and time when Time and  Date Picker Dialog first appears
     private int mHour, mMinute;
+
     // Register  TimePickerDialog listener
     private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
         // the callback received when the user "sets" the TimePickerDialog in the dialog
@@ -37,6 +40,7 @@ public class tambahActivity extends AppCompatActivity {
             etWaktu.setText(hour + ":" + minute);
         }
     };
+
 
     public tambahActivity() {
         // Assign current Date and Time Values to Variables
@@ -49,14 +53,17 @@ public class tambahActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah);
-        btnWaktu = (Button) findViewById(R.id.buttonWaktu);
+        btnHari = (Button) findViewById(R.id.buttonHari);
         etWaktu = (EditText) findViewById(R.id.editTextWaktu);
+        etMemo = (EditText) findViewById(R.id.editTextMemo);
+        etNada = (EditText) findViewById(R.id.editTextNada);
+        etMethod = (EditText) findViewById(R.id.editTextMethod);
         int Hournow = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         final int jamz = Hournow - hour;
         int Minnow = Calendar.getInstance().get(Calendar.MINUTE);
         final int minz = Minnow - mMinute;
         // Set ClickListener on btnSelectTime
-        btnWaktu.setOnClickListener(new View.OnClickListener() {
+        etWaktu.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 // Show the TimePickerDialog
@@ -67,12 +74,50 @@ public class tambahActivity extends AppCompatActivity {
         findViewById(R.id.buttonSet).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String a = etWaktu.getText().toString();
-                Toast.makeText(getApplicationContext(), "Alarm Akan Berbunyi " + mHour + "Jam " + minz + " Menit", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(tambahActivity.this, MainActivity.class);
-                startActivity(intent);
+                if (isValid()) {
+                    String a = etWaktu.getText().toString();
+                    Toast.makeText(getApplicationContext(), "Alarm Akan Berbunyi " + a, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(tambahActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
+
+        findViewById(R.id.buttonHari).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Hari demo = new Hari();
+                demo.show(getSupportFragmentManager(), "multi-demo");
+            }
+        });
+    }
+
+    private boolean isValid() {
+        boolean valid = true;
+        String waktu = etWaktu.getText().toString();
+        String nada = etNada.getText().toString();
+        String method = etMethod.getText().toString();
+
+        if (waktu.isEmpty()) {
+            etWaktu.setError("Anda belum mengatur waktu");
+            valid = false;
+        } else {
+            etWaktu.setError(null);
+        }
+        if (nada.isEmpty()) {
+            etNada.setError("Pilih ringtone terlebih dahulu");
+            valid = false;
+        } else {
+            etNada.setError(null);
+        }
+        if (method.isEmpty()) {
+            etMethod.setError("Pilih metode terlebih dahulu");
+            valid = false;
+        } else {
+            etMethod.setError(null);
+        }
+
+        return valid;
     }
 
     @Override
