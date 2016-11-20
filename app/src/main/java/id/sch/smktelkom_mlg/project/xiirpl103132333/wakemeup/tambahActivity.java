@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.Hari;
+
 public class tambahActivity extends AppCompatActivity {
 
     static final int TIME_DIALOG_ID = 1;
@@ -58,6 +60,7 @@ public class tambahActivity extends AppCompatActivity {
         etMemo = (EditText) findViewById(R.id.editTextMemo);
         etNada = (EditText) findViewById(R.id.editTextNada);
         etMethod = (EditText) findViewById(R.id.editTextMethod);
+        final Hari hariDialog = new Hari();
         int Hournow = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         final int jamz = Hournow - hour;
         int Minnow = Calendar.getInstance().get(Calendar.MINUTE);
@@ -86,8 +89,7 @@ public class tambahActivity extends AppCompatActivity {
         findViewById(R.id.buttonHari).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Hari demo = new Hari();
-                demo.show(getSupportFragmentManager(), "multi-demo");
+                hariDialog.show(getSupportFragmentManager(), "multi-demo");
             }
         });
     }

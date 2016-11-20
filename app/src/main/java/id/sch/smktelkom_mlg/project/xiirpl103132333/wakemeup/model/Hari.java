@@ -1,4 +1,4 @@
-package id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup;
+package id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,28 +10,40 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.R;
+
 /**
  * Created by ASR on 18/11/2016.
  */
 
 public class Hari extends DialogFragment {
+    private static String[] items;
     ArrayList<String> list = new ArrayList<String>();
+    private boolean[] checkedItem;
+
+    public Hari() {
+        super();
+        checkedItem = new boolean[]{false, false, false, false, false, false, false};
+    }
 
     @Override
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final String[] items = getResources().getStringArray(R.array.Hari);
+        items = getResources().getStringArray(R.array.Hari);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Pilih Hari").setMultiChoiceItems(R.array.Hari, null, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setTitle("Pilih Hari").setMultiChoiceItems(R.array.Hari, checkedItem, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 
                 if (isChecked) {
                     list.add(items[which]);
+                    checkedItem[which] = true;
                 } else if (list.contains(items[which])) {
                     list.remove(items[which]);
+                    checkedItem[which] = false;
                 }
             }
+
         }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
