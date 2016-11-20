@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/imageView_icon"
+        android:layout_width="91dp"
+        android:layout_height="85dp"
+        android:layout_alignBottom="@+id/textView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        app:srcCompat="@drawable/ram_icon" />
+
+    <TextView
+        android:id="@+id/textViewDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView7"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/textView7"
+        android:layout_weight="1"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:text="AM"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/textViewDetail"
+        android:layout_toStartOf="@+id/textViewDetail"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="3dp"
+        android:paddingTop="10dp"
+        android:text="09.00"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/switch1"
+        android:layout_toEndOf="@+id/imageView_icon"
+        android:layout_toRightOf="@+id/imageView_icon"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:text="I need to go!"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textSize="17sp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textViewDetail"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        app:srcCompat="@drawable/ic_more_vert_black_24dp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:layout_toEndOf="@+id/textViewDetail"
+        android:layout_toRightOf="@+id/textViewDetail"
+        android:text="S M T W T F S" />
+
+    <Switch
+        android:id="@+id/switch1"
+        style="@android:style/Widget.CompoundButton.Switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/imageView2"
+        android:layout_toStartOf="@+id/imageView2" />
+
+</RelativeLayout>
