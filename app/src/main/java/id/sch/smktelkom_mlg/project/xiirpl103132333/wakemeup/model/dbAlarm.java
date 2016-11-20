@@ -55,5 +55,14 @@ public class dbAlarm extends Model {
         return new Select().from(this.getClass()).execute();
     }
 
+    public void saveAlarm(String hours, String days, String ringtone, int method, int level, String memo) {
+        this.hours = hours;
+        this.days = days;
+        this.ringtone = ringtone;
+        this.method = method;
+        this.level = level;
+        this.memo = memo;
+        this.save();
+    }
 }
 
