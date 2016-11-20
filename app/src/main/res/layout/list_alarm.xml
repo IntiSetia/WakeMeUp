@@ -47,20 +47,6 @@
         android:text="09.00"
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/switch1"
-        android:layout_toEndOf="@+id/imageView_icon"
-        android:layout_toRightOf="@+id/imageView_icon"
-        android:paddingBottom="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:text="I need to go!"
-        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:textSize="17sp" />
-
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
@@ -81,12 +67,26 @@
         android:layout_toRightOf="@+id/textViewDetail"
         android:text="S M T W T F S" />
 
-    <Switch
-        android:id="@+id/switch1"
-        style="@android:style/Widget.CompoundButton.Switch"
+    <TextView
+        android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="24dp"
+        android:layout_toEndOf="@+id/imageView_icon"
+        android:layout_toRightOf="@+id/imageView_icon"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:text="I need to go!"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textSize="17sp" />
+
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView2"
         android:layout_toLeftOf="@+id/imageView2"
         android:layout_toStartOf="@+id/imageView2" />
 
