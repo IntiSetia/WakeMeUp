@@ -21,6 +21,7 @@ public class Hari extends DialogFragment {
     ArrayList<String> list = new ArrayList<String>();
     private boolean[] checkedItem;
 
+
     public Hari() {
         super();
         checkedItem = new boolean[]{false, false, false, false, false, false, false};
@@ -55,5 +56,9 @@ public class Hari extends DialogFragment {
             }
         });
         return builder.create();
+    }
+
+    public boolean[] getResult() {
+        return checkedItem;
     }
 }
