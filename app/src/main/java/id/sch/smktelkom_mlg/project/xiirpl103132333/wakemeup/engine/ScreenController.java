@@ -4,6 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.R;
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.common.Shared;
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.events.ui.ResetBackgroundEvent;
@@ -11,14 +14,12 @@ import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.fragments.CustomFra
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.fragments.DifficultySelectFragment;
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.fragments.GameFragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ScreenController {
 
 	private static ScreenController mInstance = null;
 	private static List<Screen> openedScreens = new ArrayList<Screen>();
 	private FragmentManager mFragmentManager;
+	private int level;
 
 	private ScreenController() {
 	}
@@ -30,21 +31,13 @@ public class ScreenController {
 		return mInstance;
 	}
 
-	public static enum Screen {
-		MENU,
-		CUSTOM,
-		GAME,
-		DIFFICULTY,
-		THEME_SELECT
-	}
-	
 	public static Screen getLastScreen() {
 		return openedScreens.get(openedScreens.size() - 1);
 	}
 
-	public void openScreen(Screen screen) {
+	public void openScreen(Screen screen, int level) {
 		mFragmentManager = Shared.activity.getSupportFragmentManager();
-		
+		this.level = level;
 		if (screen == Screen.GAME && openedScreens.get(openedScreens.size() - 1) == Screen.GAME) {
 			openedScreens.remove(openedScreens.size() - 1);
 		} else if (screen == Screen.DIFFICULTY && openedScreens.get(openedScreens.size() - 1) == Screen.GAME) {
@@ -56,6 +49,10 @@ public class ScreenController {
 		fragmentTransaction.replace(R.id.fragment_container, fragment);
 		fragmentTransaction.commit();
 		openedScreens.add(screen);
+	}
+
+	public void openScreen(Screen screen) {
+		openScreen(screen, 0);
 	}
 
 	public boolean onBack() {
@@ -80,7 +77,7 @@ public class ScreenController {
 	private Fragment getFragment(Screen screen) {
 		switch (screen) {
 		case CUSTOM:
-			return new CustomFragment();
+			return new CustomFragment().newInstance(level);
 		case DIFFICULTY:
 			return new DifficultySelectFragment();
 		case GAME:
@@ -89,5 +86,13 @@ public class ScreenController {
 			break;
 		}
 		return null;
+	}
+
+	public enum Screen {
+		MENU,
+		CUSTOM,
+		GAME,
+		DIFFICULTY,
+		THEME_SELECT
 	}
 }
