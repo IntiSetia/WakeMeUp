@@ -10,12 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.Hari;
+import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.Method;
+import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.Nada;
 
 public class tambahActivity extends AppCompatActivity {
 
@@ -29,9 +32,9 @@ public class tambahActivity extends AppCompatActivity {
     AlarmManager alarm_manager;
     Context context;
     Calendar calendar;
+    SeekBar seekBar1;
     // declare  the variables to Show/Set the date and time when Time and  Date Picker Dialog first appears
     private int mHour, mMinute;
-
     // Register  TimePickerDialog listener
     private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
         // the callback received when the user "sets" the TimePickerDialog in the dialog
@@ -60,7 +63,11 @@ public class tambahActivity extends AppCompatActivity {
         etMemo = (EditText) findViewById(R.id.editTextMemo);
         etNada = (EditText) findViewById(R.id.editTextNada);
         etMethod = (EditText) findViewById(R.id.editTextMethod);
+
         final Hari hariDialog = new Hari();
+        final Nada nadaDialog = new Nada();
+        final Method methodDialog = new Method();
+
         int Hournow = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         final int jamz = Hournow - hour;
         int Minnow = Calendar.getInstance().get(Calendar.MINUTE);
@@ -71,6 +78,20 @@ public class tambahActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Show the TimePickerDialog
                 showDialog(TIME_DIALOG_ID);
+            }
+        });
+
+        etNada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nadaDialog.show(getSupportFragmentManager(), "multi-demo");
+            }
+        });
+
+        etMethod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                methodDialog.show(getSupportFragmentManager(), "multi-demo");
             }
         });
 
@@ -92,6 +113,40 @@ public class tambahActivity extends AppCompatActivity {
                 hariDialog.show(getSupportFragmentManager(), "multi-demo");
             }
         });
+
+        seekBar1 = (SeekBar) findViewById(R.id.seekBar);
+
+        seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressChanged = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressChanged = progress;
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if (progressChanged == 0) {
+                    Toast.makeText(tambahActivity.this, "Level: Very Easy",
+                            Toast.LENGTH_SHORT).show();
+                } else if (progressChanged == 1) {
+                    Toast.makeText(tambahActivity.this, "Level: Easy",
+                            Toast.LENGTH_SHORT).show();
+                } else if (progressChanged == 2) {
+                    Toast.makeText(tambahActivity.this, "Level: Medium",
+                            Toast.LENGTH_SHORT).show();
+                } else if (progressChanged == 3) {
+                    Toast.makeText(tambahActivity.this, "Level: Hard",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(tambahActivity.this, "Level: Very Hard",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     private boolean isValid() {
@@ -132,5 +187,6 @@ public class tambahActivity extends AppCompatActivity {
         }
         return null;
     }
+
 
 }
