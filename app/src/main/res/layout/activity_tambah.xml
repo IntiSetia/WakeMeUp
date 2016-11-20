@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="id.sch.smktelkom_mlg.learn.cobababa.tambah_activity">
+    tools:context="id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.tambahActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,63 +22,38 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/editTextWaktu"
-                    android:layout_width="172dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Waktu"
-                    android:inputType="textPersonName" />
-
-                <Button
-                    android:id="@+id/buttonWaktu"
-                    android:layout_width="116dp"
-                    android:layout_height="wrap_content"
-                    android:onClick="showTimePickerDialog"
-                    android:text="Waktu" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
+                    <Button
+                        android:id="@+id/buttonHari"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:text="Pilih Hari" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                        <EditText
-                            android:id="@+id/editTextHari"
-                            android:layout_width="172dp"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:hint="Hari"
-                            android:inputType="textPersonName" />
+                    <EditText
+                        android:id="@+id/editTextWaktu"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:hint="Waktu"
+                        android:inputType="textPersonName" />
 
-                        <Button
-                            android:id="@+id/buttonHari"
-                            android:layout_width="116dp"
-                            android:layout_height="wrap_content"
-                            android:text="Hari" />
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -188,6 +163,5 @@
 
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
     </ScrollView>
 </LinearLayout>
