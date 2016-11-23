@@ -1,7 +1,6 @@
 package id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup;
 
 import android.content.Context;
-import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -13,8 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Random;
 
 public class HitungActivity extends AppCompatActivity {
     private static final String TAG = "LivecycleTag";
@@ -32,28 +29,6 @@ public class HitungActivity extends AppCompatActivity {
         tvHasil = (TextView) findViewById(R.id.textViewHasil);
         ImageButton pause = (ImageButton) findViewById(R.id.buttonPause);
 
-        String randText = "";
-        Random randGen = new Random();
-        final int rando = randGen.nextInt(40);
-        randText = Integer.toString(rando);
-
-        String randText2 = "";
-        Random randGen2 = new Random();
-        final int rando2 = randGen2.nextInt(40);
-        randText2 = Integer.toString(rando2);
-
-        Bil1.setText(randText + " + " + randText2 + " = ");
-
-        findViewById(R.id.Jawab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (doJawab(rando, rando2)) {
-                    startActivity(new Intent(HitungActivity.this, Hitung2Activity.class));
-                } else {
-                    TulisJwb.setError("Jawaban salah");
-                }
-            }
-        });
         mediaPlayer = MediaPlayer.create(this, R.raw.air_raid);
         findViewById(R.id.buttonPause).setOnClickListener(new View.OnClickListener() {
             @Override

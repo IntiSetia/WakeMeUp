@@ -19,14 +19,15 @@ import java.util.Calendar;
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.Hari;
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.Method;
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.Nada;
+import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.dbAlarm;
 
 public class tambahActivity extends AppCompatActivity {
 
     static final int TIME_DIALOG_ID = 1;
     // variables to save user selected date and time
     public int hour, minute;
-    Button btnHari;
-    EditText etWaktu, etMemo, etNada, etMethod;
+    public Button btnHari, btnSetAlarm;
+    public EditText etWaktu, etMemo, etNada, etMethod;
     TimePickerDialog alarm_timepicker;
     TimePicker myTimePicker;
     AlarmManager alarm_manager;
@@ -35,14 +36,18 @@ public class tambahActivity extends AppCompatActivity {
     SeekBar seekBar1;
     // declare  the variables to Show/Set the date and time when Time and  Date Picker Dialog first appears
     private int mHour, mMinute;
+
     // Register  TimePickerDialog listener
     private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
         // the callback received when the user "sets" the TimePickerDialog in the dialog
         public void onTimeSet(TimePicker view, int hourOfDay, int min) {
-            hour = hourOfDay;
-            minute = min;
+            String hour = String.valueOf(hourOfDay);
+            String minute = String.valueOf(min);
+            hour = hour.length() <= 1 ? "0" + hour : hour;
+            minute = minute.length() <= 1 ? "0" + minute : minute;
+
             // Set the Selected Date in Select date Button
-            etWaktu.setText(hour + ":" + minute);
+            etWaktu.setText(hour + " : " + minute);
         }
     };
 
@@ -63,6 +68,8 @@ public class tambahActivity extends AppCompatActivity {
         etMemo = (EditText) findViewById(R.id.editTextMemo);
         etNada = (EditText) findViewById(R.id.editTextNada);
         etMethod = (EditText) findViewById(R.id.editTextMethod);
+        btnSetAlarm = (Button) findViewById(R.id.buttonSet);
+
 
         final Hari hariDialog = new Hari();
         final Nada nadaDialog = new Nada();
@@ -72,6 +79,9 @@ public class tambahActivity extends AppCompatActivity {
         final int jamz = Hournow - hour;
         int Minnow = Calendar.getInstance().get(Calendar.MINUTE);
         final int minz = Minnow - mMinute;
+
+        etMemo.clearFocus();
+
         // Set ClickListener on btnSelectTime
         etWaktu.setOnClickListener(new View.OnClickListener() {
 
@@ -81,17 +91,23 @@ public class tambahActivity extends AppCompatActivity {
             }
         });
 
-        etNada.setOnClickListener(new View.OnClickListener() {
+        etNada.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                nadaDialog.show(getSupportFragmentManager(), "multi-demo");
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    nadaDialog.show(getSupportFragmentManager(), "multi-demo");
+                    v.clearFocus();
+                }
             }
         });
 
-        etMethod.setOnClickListener(new View.OnClickListener() {
+        etMethod.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View view) {
-                methodDialog.show(getSupportFragmentManager(), "multi-demo");
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    methodDialog.show(getSupportFragmentManager(), "multi-demo");
+                    v.clearFocus();
+                }
             }
         });
 
@@ -115,6 +131,7 @@ public class tambahActivity extends AppCompatActivity {
         });
 
         seekBar1 = (SeekBar) findViewById(R.id.seekBar);
+        seekBar1.setMax(4);
 
         seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressChanged = 0;
@@ -144,6 +161,16 @@ public class tambahActivity extends AppCompatActivity {
                     Toast.makeText(tambahActivity.this, "Level: Very Hard",
                             Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnSetAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(tambahActivity.this, hariDialog.getNumberRes(), Toast.LENGTH_SHORT).show();
+                int l = seekBar1.getProgress();
+                dbAlarm db = new dbAlarm();
+                db.saveAlarm(etWaktu.getText().toString(), hariDialog.getNumberRes(), nadaDialog.getResultString(), methodDialog.getResult(), l, etMemo.getText().toString());
             }
         });
 

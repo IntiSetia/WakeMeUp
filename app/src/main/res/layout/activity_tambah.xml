@@ -83,17 +83,12 @@
 
                                 <EditText
                                     android:id="@+id/editTextNada"
-                                    android:layout_width="172dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:ems="10"
                                     android:hint="Nada dering"
                                     android:inputType="textPersonName" />
 
-                                <Button
-                                    android:id="@+id/buttonNada"
-                                    android:layout_width="116dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="Nada" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -115,17 +110,11 @@
 
                                 <EditText
                                     android:id="@+id/editTextMethod"
-                                    android:layout_width="172dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:ems="10"
                                     android:hint="Method"
                                     android:inputType="textPersonName" />
-
-                                <Button
-                                    android:id="@+id/buttonMethod"
-                                    android:layout_width="116dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="Method" />
 
                             </LinearLayout>
                         </LinearLayout>

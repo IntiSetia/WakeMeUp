@@ -21,9 +21,11 @@
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
             android:text="A"
             android:textAlignment="center"
-            android:textSize="18sp" />
+            android:textAppearance="@android:style/TextAppearance.Material.Display4"
+            android:typeface="normal" />
 
     </LinearLayout>
 
@@ -37,7 +39,7 @@
         android:id="@+id/Jawab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="OK" />
 
     <TextView
         android:id="@+id/textViewHasil"
@@ -46,10 +48,13 @@
         android:text="" />
 
     <ImageButton
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:id="@+id/buttonPause"
+        android:layout_width="83dp"
+        android:layout_height="25dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/Pause" />
+        android:layout_weight="0.26"
+        android:background="@drawable/ic_pause_circle_outline_black_24dp"
+        android:tint="@color/colorPrimary" />
 
 
 </LinearLayout>

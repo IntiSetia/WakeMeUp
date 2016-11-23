@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.widget.Toast;
 
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.R;
+import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.tambahActivity;
 
 /**
  * Created by asus on 20-Nov-16.
@@ -36,7 +36,8 @@ public class Method extends DialogFragment {
         }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getActivity(), "index method yang terpilih " + selectedItem, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "index method yang terpilih " + selectedItem, Toast.LENGTH_SHORT).show();
+                ((tambahActivity) getActivity()).etMethod.setText(items[selectedItem]);
             }
         });
 

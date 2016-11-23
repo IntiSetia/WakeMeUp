@@ -12,9 +12,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import java.util.List;
+
+import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.dbAlarm;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String LEVEL = "level";
+
+    public RelativeLayout rlMain, rlLAlarm;
+    dbAlarm db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +34,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        rlMain = (RelativeLayout) findViewById(R.id.content_main2);
+        rlLAlarm = (RelativeLayout) findViewById(R.id.listAlarm);
+
+        db = new dbAlarm();
+        refresh();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +89,7 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -99,5 +116,19 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void refresh() {
+        rlMain.removeAllViews();
+
+
+        List<dbAlarm> resultList = db.getAll();
+        //for (int i = 0; i < resultList.size(); i++){
+        TextView tvDetail = (TextView) rlLAlarm.findViewById(R.id.textViewTime);
+        tvDetail.setText(resultList.get(0).hours);
+
+        rlMain.addView(rlLAlarm);
+
+        //}
     }
 }
