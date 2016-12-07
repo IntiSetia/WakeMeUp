@@ -8,47 +8,47 @@ b. Match Memory Game, berupa permainan mencari pasangan untuk sebuah gambar yang
 
 # Hasil Capture Aplikasi WakeMeUp Alarm
 
-1. Tampilan ketika aplikasi pertama kali dijalankan
+Tampilan ketika aplikasi pertama kali dijalankan
 
 ![Screenshots App1](https://github.com/IntiSetia/WakeMeUp/blob/master/WakeMeUp_1.png)
 
-2. Tampilan ketika aplikasi diklik 'icon' tambah alarm.
+Tampilan ketika aplikasi diklik 'icon' tambah alarm.
 
 ![Screenshots App2](https://github.com/IntiSetia/WakeMeUp/blob/master/WakeMeUp_2.png)
 
-3. Tampilan ketika aplikasi diklik pada menu 'Pilih Hari'.
+Tampilan ketika aplikasi diklik pada menu 'Pilih Hari'.
 
 ![Screenshots App3](https://github.com/IntiSetia/WakeMeUp/blob/master/WakeMeUp_3.png)
 
-4. Tampilan ketika aplikasi diklik pada menu 'Waktu'.
+Tampilan ketika aplikasi diklik pada menu 'Waktu'.
 
 ![Screenshots App4](https://github.com/IntiSetia/WakeMeUp/blob/master/WakeMeUp_4.png)
 
-5. Tampilan ketika aplikasi diklik pada menu 'Pilih Nada'.
+Tampilan ketika aplikasi diklik pada menu 'Pilih Nada'.
 
 ![Screenshots App5](https://github.com/IntiSetia/WakeMeUp/blob/master/WakeMeUp_5.png)
 
-6. Tampilan ketika aplikasi diklik pada menu 'Pilih Method' untuk menentukan jenis tantangan yang akan deselesaikan pengguna saat alarm berdering.
+Tampilan ketika aplikasi diklik pada menu 'Pilih Method' untuk menentukan jenis tantangan yang akan deselesaikan pengguna saat alarm berdering.
 
 ![Screenshots App6](https://github.com/IntiSetia/WakeMeUp/blob/master/WakeMeUp_6.png)
 
-7. Tampilan ketika aplikasi diklik untuk mengatur 'Tingkat Kesulitan'.
+Tampilan ketika aplikasi diklik untuk mengatur 'Tingkat Kesulitan'.
 
 ![Screenshots App7](https://github.com/IntiSetia/WakeMeUp/blob/master/WakeMeUp_7.png)
 
-8. Tampilan ketika alarm berhasil ditambahkan'.
+Tampilan ketika alarm berhasil ditambahkan'.
 
 ![Screenshots App8](https://github.com/IntiSetia/WakeMeUp/blob/master/WakeMeUp_8.png)
 
-9. Tampilan ketika list alarm diklik maka aplikasi akan menuju pada tampilan 'Edit Alarm'.
+Tampilan ketika list alarm diklik maka aplikasi akan menuju pada tampilan 'Edit Alarm'.
 
 ![Screenshots App9](https://github.com/IntiSetia/WakeMeUp/blob/master/WakeMeUp_9.png)
 
-10. Sebagai contoh dilakukan perubahan pada memo atau judul alarm dari yang sebelumnya 'Alarm1' menjadi semangat pagi.
+Sebagai contoh dilakukan perubahan pada memo atau judul alarm dari yang sebelumnya 'Alarm1' menjadi semangat pagi.
 
 ![Screenshots App10](https://github.com/IntiSetia/WakeMeUp/blob/master/WakeMeUp_10.png)
 
-11. Tampilan ketika aplikasi telah berhasil diedit.
+Tampilan ketika aplikasi telah berhasil diedit.
 
 ![Screenshots App11](https://github.com/IntiSetia/WakeMeUp/blob/master/WakeMeUp_11.png)
 
