@@ -1,5 +1,7 @@
 package id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,24 +10,39 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.adapter.AlarmAdapter;
+import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.common.AlarmService;
+import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.Alarm;
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.dbAlarm;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AlarmAdapter.IalarmAdapter {
 
+
+    public final static int EDIT = 213;
     public static final String LEVEL = "level";
-
-    public RelativeLayout rlMain, rlLAlarm;
+    static Context ctx;
+    Intent mServiceIntent;
+    ArrayList<Alarm> mAlarmList = new ArrayList<>();
+    AlarmAdapter mAdapter;
     dbAlarm db;
+    private AlarmService mAlarmService;
+
+    public static Context getCtx() {
+        return ctx;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +51,28 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        rlMain = (RelativeLayout) findViewById(R.id.content_main2);
-        rlLAlarm = (RelativeLayout) findViewById(R.id.listAlarm);
-
         db = new dbAlarm();
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.content_recycle);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapter = new AlarmAdapter(this, mAlarmList);
+        recyclerView.setAdapter(mAdapter);
         refresh();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                List<dbAlarm> dt = dbAlarm.getAll();
                 Intent intent = new Intent(MainActivity.this, tambahActivity.class);
+                if (dt.size() > 0) {
+                    intent.putExtra("id", mAlarmList.get(mAlarmList.size() - 1).id);
+                    Toast.makeText(MainActivity.getCtx(), "" + String.valueOf(dbAlarm.getMaxID()), Toast.LENGTH_SHORT).show();
+                } else {
+                    intent.putExtra("id", 0);
+                    Toast.makeText(MainActivity.getCtx(), "0", Toast.LENGTH_SHORT).show();
+                }
                 startActivity(intent);
 
             }
@@ -58,6 +87,25 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        ctx = this;
+        mAlarmService = new AlarmService(getCtx());
+        mServiceIntent = new Intent(getCtx(), mAlarmService.getClass());
+        if (!isMyServiceRunning(mAlarmService.getClass())) {
+            startService(mServiceIntent);
+        }
+
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i("isMyServiceRunning?", true + "");
+                return true;
+            }
+        }
+        Log.i("isMyServiceRunning?", false + "");
+        return false;
     }
 
     @Override
@@ -119,16 +167,36 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void refresh() {
-        rlMain.removeAllViews();
+        Log.i("start", "refresh");
+        List<dbAlarm> dbData = dbAlarm.getAll();
+
+        mAlarmList.clear();
+
+        for (int i = 0; i < dbData.size(); i++) {
+            mAlarmList.add(new Alarm(dbData.get(i).getId(), dbData.get(i).hours, dbData.get(i).days,
+                    dbData.get(i).ringtone, dbData.get(i).method, dbData.get(i).level, dbData.get(i).memo, dbData.get(i).isEnabled));
+            Log.i("a", "refresh: " + i);
+        }
+
+        mAdapter.notifyDataSetChanged();
 
 
-        List<dbAlarm> resultList = db.getAll();
-        //for (int i = 0; i < resultList.size(); i++){
-        TextView tvDetail = (TextView) rlLAlarm.findViewById(R.id.textViewTime);
-        tvDetail.setText(resultList.get(0).hours);
-
-        rlMain.addView(rlLAlarm);
-
-        //}
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(mServiceIntent);
+        Log.i("MAINACT", "onDestroy!");
+    }
+
+    @Override
+    public void doClick(int pos) {
+        Toast.makeText(this, "" + mAlarmList.get(pos).id, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, tambahActivity.class);
+        intent.putExtra("code", EDIT);
+        intent.putExtra("id", mAlarmList.get(pos).id);
+        startActivity(intent);
+    }
+
 }

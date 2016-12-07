@@ -1,11 +1,13 @@
 package id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.widget.EditText;
 
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.R;
@@ -16,9 +18,10 @@ import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.tambahActivity;
  */
 
 public class Nada extends DialogFragment {
-    private static String[] items;
+    private String[] items;
     private EditText etNada;
     private int selectedItem;
+    private Context context;
 
     public Nada() {
         super();
@@ -28,7 +31,7 @@ public class Nada extends DialogFragment {
     @Override
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        items = getResources().getStringArray(R.array.Nada);
+        Log.i("info", "onCreateDialog: ");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Pilih Nada").setSingleChoiceItems(R.array.Nada, selectedItem, new DialogInterface.OnClickListener() {
             @Override
@@ -51,7 +54,19 @@ public class Nada extends DialogFragment {
         return items[selectedItem];
     }
 
+    public String[] getArray() {
+        return items;
+    }
+
+    public void setArray(String[] items) {
+        this.items = items;
+    }
+
     public int getResult() {
         return selectedItem;
+    }
+
+    public void setResult(int selectedItem) {
+        this.selectedItem = selectedItem;
     }
 }

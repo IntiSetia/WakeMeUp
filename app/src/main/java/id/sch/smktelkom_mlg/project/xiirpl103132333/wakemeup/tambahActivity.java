@@ -1,9 +1,7 @@
 package id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup;
 
-import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +13,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.List;
 
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.Hari;
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.Method;
@@ -28,14 +27,14 @@ public class tambahActivity extends AppCompatActivity {
     public int hour, minute;
     public Button btnHari, btnSetAlarm;
     public EditText etWaktu, etMemo, etNada, etMethod;
-    TimePickerDialog alarm_timepicker;
-    TimePicker myTimePicker;
-    AlarmManager alarm_manager;
-    Context context;
-    Calendar calendar;
     SeekBar seekBar1;
+    private Hari hariDialog;
+    private Nada nadaDialog;
+    private Method methodDialog;
     // declare  the variables to Show/Set the date and time when Time and  Date Picker Dialog first appears
     private int mHour, mMinute;
+    private Boolean isEdit;
+    private long alarmId;
 
     // Register  TimePickerDialog listener
     private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
@@ -59,6 +58,24 @@ public class tambahActivity extends AppCompatActivity {
         mMinute = c.get(Calendar.MINUTE);
     }
 
+    public static boolean[] getBoolDays(String days) {
+        boolean[] res = new boolean[]{false, false, false, false, false, false, false};
+
+        for (int i = 0; i < days.length() - 1; i++) {
+            res[i] = days.charAt(i) == '1';
+        }
+
+        return res;
+    }
+
+    public static int searchRingtone(String song, String[] sArr) {
+        int res;
+        for (int i = 0; i < sArr.length - 1; i++) {
+            if (sArr[i].equals(song)) return i;
+        }
+        return -1;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,11 +87,34 @@ public class tambahActivity extends AppCompatActivity {
         etMethod = (EditText) findViewById(R.id.editTextMethod);
         btnSetAlarm = (Button) findViewById(R.id.buttonSet);
 
+        hariDialog = new Hari();
+        nadaDialog = new Nada();
+        nadaDialog.setArray(getResources().getStringArray(R.array.Nada));
+        methodDialog = new Method();
+        methodDialog.setResultTV(etMethod);
 
-        final Hari hariDialog = new Hari();
-        final Nada nadaDialog = new Nada();
-        final Method methodDialog = new Method();
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            this.alarmId = bundle.getLong("id");
+            if (bundle.getInt("code") == MainActivity.EDIT) {
+                this.isEdit = true;
+                dbAlarm db = new dbAlarm();
+                setTitle(R.string.edit_title);
+                List<dbAlarm> data = db.getDataAtId(alarmId);
+                boolean[] checkedDays = getBoolDays(data.get(0).days);
+                hariDialog.setCheckedItem(checkedDays);
+                methodDialog.setResult(data.get(0).method);
+                nadaDialog.setResult(searchRingtone(data.get(0).ringtone, nadaDialog.getArray()));
 
+
+            } else {
+                setTitle(R.string.add_title);
+                this.isEdit = false;
+            }
+        } else {
+            setTitle(R.string.add_title);
+            this.isEdit = false;
+        }
         int Hournow = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         final int jamz = Hournow - hour;
         int Minnow = Calendar.getInstance().get(Calendar.MINUTE);
@@ -167,10 +207,16 @@ public class tambahActivity extends AppCompatActivity {
         btnSetAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(tambahActivity.this, hariDialog.getNumberRes(), Toast.LENGTH_SHORT).show();
                 int l = seekBar1.getProgress();
                 dbAlarm db = new dbAlarm();
-                db.saveAlarm(etWaktu.getText().toString(), hariDialog.getNumberRes(), nadaDialog.getResultString(), methodDialog.getResult(), l, etMemo.getText().toString());
+                if (isEdit) {
+                    db.editAlarm(alarmId, etWaktu.getText().toString(), hariDialog.getNumberRes(), nadaDialog.getResultString(),
+                            methodDialog.getResult(), l, etMemo.getText().toString());
+                } else {
+                    long id = alarmId + 1;
+                    db.saveAlarm(id, etWaktu.getText().toString(), hariDialog.getNumberRes(), nadaDialog.getResultString(),
+                            methodDialog.getResult(), l, etMemo.getText().toString(), true);
+                }
             }
         });
 
