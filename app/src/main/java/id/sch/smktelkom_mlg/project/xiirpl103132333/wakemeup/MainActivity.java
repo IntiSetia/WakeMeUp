@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void doClick(int pos) {
-        Toast.makeText(this, "" + mAlarmList.get(pos).id, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "" + mAlarmList.get(pos).id, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, tambahActivity.class);
         intent.putExtra("code", EDIT);
         intent.putExtra("id", mAlarmList.get(pos).id);

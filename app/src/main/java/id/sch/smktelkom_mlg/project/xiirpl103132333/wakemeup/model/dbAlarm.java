@@ -55,6 +55,15 @@ public class dbAlarm extends Model {
         return Cache.openDatabase().rawQuery(resultRecords, null);
     }
 
+    public static List<dbAlarm> getAllEnabled() {
+        return new Select().from(dbAlarm.class).where("isEnabled = ?", 1).execute();
+    }
+
+    public static List<dbAlarm> getAllDayOn(int dayI) {
+        return new Select().from(dbAlarm.class).where("SUBSTR(days, ?, 1) = '1' AND isEnabled = ?", dayI, 1
+        ).orderBy("hours ASC").execute();
+    }
+
     public static List<dbAlarm> getAll() {
         return new Select().from(dbAlarm.class).execute();
     }

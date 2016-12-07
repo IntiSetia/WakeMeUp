@@ -41,6 +41,7 @@
             android:name=".common.AlarmService"
             android:enabled="true"></service>
 
+        <receiver android:name=".common.AlarmBroadcastReceiver"></receiver>
         <receiver
             android:name=".common.AlarmReceiver"
             android:enabled="true"
