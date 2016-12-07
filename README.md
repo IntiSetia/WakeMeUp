@@ -56,11 +56,11 @@ Sampai saat ini aplikasi masih dalam tahap pengembangan untuk tercapainya tujuan
 
 # Link Unduh File Aplikasi WakeMeUp Alarm
 
-[Link Download App](#)
+[Link Download App](https://drive.google.com/file/d/0B5zJmn4rx4E_WG1vMHl4cEpnaDA/view)
 
 # Link Video Aplikasi WakeMeUp Alarm
 
-[Link Download App](#)
+[Link Download App](https://drive.google.com/file/d/0ByvNM8GpWN07Zm96VWZ1MGRpZ3M/view)
 
 # Collaborator
 
