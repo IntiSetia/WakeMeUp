@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu.OnMenuItemClickListener;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -28,7 +29,7 @@ import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.Alarm;
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.dbAlarm;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AlarmAdapter.IalarmAdapter {
+        implements OnMenuItemClickListener, NavigationView.OnNavigationItemSelectedListener, AlarmAdapter.IalarmAdapter {
 
 
     public final static int EDIT = 213;
@@ -93,6 +94,16 @@ public class MainActivity extends AppCompatActivity
         if (!isMyServiceRunning(mAlarmService.getClass())) {
             startService(mServiceIntent);
         }
+
+        /*findViewById(R.id.imageButtonMore).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(MainActivity.this, view);
+                popupMenu.setOnMenuItemClickListener(MainActivity.this);
+                popupMenu.inflate(R.menu.popup_menu);
+                popupMenu.show();
+            }
+        });*/
 
     }
 
@@ -199,4 +210,17 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_edit:
+                Toast.makeText(this, "Edit", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.item_delete:
+                Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return false;
+        }
+    }
 }
