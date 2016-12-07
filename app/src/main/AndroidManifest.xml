@@ -36,6 +36,20 @@
             android:name=".common.GameMethod"
             android:screenOrientation="userLandscape"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"></activity>
+
+        <service
+            android:name=".common.AlarmService"
+            android:enabled="true"></service>
+
+        <receiver
+            android:name=".common.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RestartServiceWhenStopped">
+            <intent-filter>
+                <action android:name="RestartSensor" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

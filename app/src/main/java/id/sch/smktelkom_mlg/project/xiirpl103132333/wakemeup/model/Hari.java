@@ -62,6 +62,10 @@ public class Hari extends DialogFragment {
         return checkedItem;
     }
 
+    public void setCheckedItem(boolean[] checkedItem) {
+        this.checkedItem = checkedItem;
+    }
+
     public String getNumberRes() {
         String res = "";
         for (int i = 0; i < checkedItem.length; i++) {

@@ -11,10 +11,11 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
+import com.activeandroid.query.Update;
 
 import java.util.List;
 
-@Table(name = "dbAlarm", id = "_id")
+@Table(name = "dbAlarm", id = "alarmId")
 public class dbAlarm extends Model {
     @Column(name = "id")
     public long id;
@@ -30,12 +31,14 @@ public class dbAlarm extends Model {
     public int level;
     @Column(name = "memo")
     public String memo;
+    @Column(name = "isEnabled")
+    public boolean isEnabled;
 
     public dbAlarm() {
         super();
     }
 
-    public dbAlarm(long id, String hours, String days, String ringtone, int method, int level, String memo) {
+    public dbAlarm(long id, String hours, String days, String ringtone, int method, int level, String memo, boolean isEnabled) {
         super();
         this.id = id;
         this.hours = hours;
@@ -44,6 +47,7 @@ public class dbAlarm extends Model {
         this.method = method;
         this.level = level;
         this.memo = memo;
+        this.isEnabled = isEnabled;
     }
 
     public static Cursor getAllCursor() {
@@ -51,18 +55,36 @@ public class dbAlarm extends Model {
         return Cache.openDatabase().rawQuery(resultRecords, null);
     }
 
-    public List<dbAlarm> getAll() {
-        return new Select().from(this.getClass()).execute();
+    public static List<dbAlarm> getAll() {
+        return new Select().from(dbAlarm.class).execute();
     }
 
-    public void saveAlarm(String hours, String days, String ringtone, int method, int level, String memo) {
+    public static long getMaxID() {
+        return new Select("alarmId").from(dbAlarm.class).orderBy("alarmId DESC").limit(1).executeSingle().getId();
+    }
+
+    public void saveAlarm(long id, String hours, String days, String ringtone, int method, int level, String memo, boolean isEnabled) {
+        this.id = id;
         this.hours = hours;
         this.days = days;
         this.ringtone = ringtone;
         this.method = method;
         this.level = level;
         this.memo = memo;
+        this.isEnabled = isEnabled;
         this.save();
+    }
+
+    public List<dbAlarm> getDataAtId(long id) {
+        return new Select().from(dbAlarm.class).where("alarmId = ?", id).limit(1).execute();
+    }
+
+    public void editAlarm(long id, String hours, String days, String ringtone, int method, int level, String memo) {
+        new Update(dbAlarm.class)
+                .set("hours = ?, days = ?, ringtone = ?, method = ?, level = ?, memo = ?",
+                        hours, days, ringtone, method, level, memo)
+                .where("alarmId = ?", id)
+                .execute();
     }
 }
 
