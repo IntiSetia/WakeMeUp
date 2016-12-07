@@ -86,5 +86,13 @@ public class dbAlarm extends Model {
                 .where("alarmId = ?", id)
                 .execute();
     }
+
+    public void enDisAlarm(long id, boolean isEnabled) {
+        new Update(dbAlarm.class)
+                .set("isEnabled = ?", isEnabled ? 1 : 0)
+                .where("alarmId = ?", id)
+                .execute();
+
+    }
 }
 

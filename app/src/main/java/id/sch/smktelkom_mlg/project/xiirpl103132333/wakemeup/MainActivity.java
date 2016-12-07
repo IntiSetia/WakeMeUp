@@ -191,6 +191,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            refresh();
+        }
+    }
+
+
+    @Override
     public void doClick(int pos) {
         Toast.makeText(this, "" + mAlarmList.get(pos).id, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, tambahActivity.class);
@@ -199,4 +208,9 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    @Override
+    public void changeSwitch(int pos, boolean state) {
+        db.enDisAlarm(mAlarmList.get(pos).id, state);
+        Log.i("info", "onCheckedChanged: " + state);
+    }
 }

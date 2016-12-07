@@ -29,17 +29,17 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/Jawab"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="OK" />
+
     <EditText
         android:id="@+id/Jawaban"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ketikkan jawaban" />
-
-    <Button
-        android:id="@+id/Jawab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="OK" />
 
     <TextView
         android:id="@+id/textViewHasil"

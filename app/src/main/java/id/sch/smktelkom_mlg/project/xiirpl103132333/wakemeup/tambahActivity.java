@@ -20,9 +20,14 @@ import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.Method;
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.Nada;
 import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.model.dbAlarm;
 
+import static android.app.AlertDialog.THEME_HOLO_LIGHT;
+
 public class tambahActivity extends AppCompatActivity {
 
     static final int TIME_DIALOG_ID = 1;
+    public static String day[] = {
+            "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+    };
     // variables to save user selected date and time
     public int hour, minute;
     public Button btnHari, btnSetAlarm;
@@ -35,7 +40,6 @@ public class tambahActivity extends AppCompatActivity {
     private int mHour, mMinute;
     private Boolean isEdit;
     private long alarmId;
-
     // Register  TimePickerDialog listener
     private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
         // the callback received when the user "sets" the TimePickerDialog in the dialog
@@ -49,7 +53,6 @@ public class tambahActivity extends AppCompatActivity {
             etWaktu.setText(hour + " : " + minute);
         }
     };
-
 
     public tambahActivity() {
         // Assign current Date and Time Values to Variables
@@ -70,10 +73,19 @@ public class tambahActivity extends AppCompatActivity {
 
     public static int searchRingtone(String song, String[] sArr) {
         int res;
-        for (int i = 0; i < sArr.length - 1; i++) {
+        for (int i = 0; i < sArr.length; i++) {
             if (sArr[i].equals(song)) return i;
         }
         return -1;
+    }
+
+    public static String getHTMLDays(String days) {
+        String res = "";
+        for (int i = 0; i < days.length(); i++) {
+            res += days.charAt(i) == '1' ? "<b><font color=#444444>" + day[i].charAt(0) + " </font></b>" : "<font color=#AAAAAA>" + day[i].charAt(0) + " </font>";
+        }
+
+        return res;
     }
 
     @Override
@@ -91,7 +103,9 @@ public class tambahActivity extends AppCompatActivity {
         nadaDialog = new Nada();
         nadaDialog.setArray(getResources().getStringArray(R.array.Nada));
         methodDialog = new Method();
+        methodDialog.setArray(getResources().getStringArray(R.array.Method));
         methodDialog.setResultTV(etMethod);
+        seekBar1 = (SeekBar) findViewById(R.id.seekBar);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -101,12 +115,17 @@ public class tambahActivity extends AppCompatActivity {
                 dbAlarm db = new dbAlarm();
                 setTitle(R.string.edit_title);
                 List<dbAlarm> data = db.getDataAtId(alarmId);
-                boolean[] checkedDays = getBoolDays(data.get(0).days);
+                dbAlarm selectedData = data.get(0);
+                boolean[] checkedDays = getBoolDays(selectedData.days);
                 hariDialog.setCheckedItem(checkedDays);
-                methodDialog.setResult(data.get(0).method);
-                nadaDialog.setResult(searchRingtone(data.get(0).ringtone, nadaDialog.getArray()));
+                methodDialog.setResult(selectedData.method);
+                nadaDialog.setResult(searchRingtone(selectedData.ringtone, nadaDialog.getArray()));
 
-
+                etWaktu.setText(selectedData.hours);
+                etMemo.setText(selectedData.memo);
+                etNada.setText(nadaDialog.getResultString());
+                etMethod.setText(methodDialog.getResultString());
+                seekBar1.setProgress(selectedData.level);
             } else {
                 setTitle(R.string.add_title);
                 this.isEdit = false;
@@ -170,7 +189,6 @@ public class tambahActivity extends AppCompatActivity {
             }
         });
 
-        seekBar1 = (SeekBar) findViewById(R.id.seekBar);
         seekBar1.setMax(4);
 
         seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -217,6 +235,8 @@ public class tambahActivity extends AppCompatActivity {
                     db.saveAlarm(id, etWaktu.getText().toString(), hariDialog.getNumberRes(), nadaDialog.getResultString(),
                             methodDialog.getResult(), l, etMemo.getText().toString(), true);
                 }
+
+                onBackPressed();
             }
         });
 
@@ -255,7 +275,7 @@ public class tambahActivity extends AppCompatActivity {
         switch (id) {
             // create a new TimePickerDialog with values you want to show
             case TIME_DIALOG_ID:
-                return new TimePickerDialog(this, mTimeSetListener, mHour, mMinute, false);
+                return new TimePickerDialog(this, THEME_HOLO_LIGHT, mTimeSetListener, mHour, mMinute, true);
 
         }
         return null;

@@ -15,7 +15,7 @@ import id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup.R;
  */
 
 public class Method extends DialogFragment {
-    private static String[] items;
+    private String[] items;
     private int selectedItem;
     private TextView restv;
 
@@ -47,6 +47,10 @@ public class Method extends DialogFragment {
 
     public void setResultTV(TextView resultTV) {
         this.restv = resultTV;
+    }
+
+    public void setArray(String[] items) {
+        this.items = items;
     }
 
     public String getResultString() {
