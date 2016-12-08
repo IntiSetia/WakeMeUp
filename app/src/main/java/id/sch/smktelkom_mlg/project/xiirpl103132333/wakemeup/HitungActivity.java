@@ -24,8 +24,8 @@ public class HitungActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popup_math);
-        Bil1 = (TextView) findViewById(R.id.textView1);
-        TulisJwb = (EditText) findViewById(R.id.Jawaban);
+        Bil1 = (TextView) findViewById(R.id.textViewSoal);
+        TulisJwb = (EditText) findViewById(R.id.EditTextJawab);
         tvHasil = (TextView) findViewById(R.id.textViewHasil);
         ImageButton pause = (ImageButton) findViewById(R.id.buttonPause);
 

@@ -22,6 +22,7 @@ public class Nada extends DialogFragment {
     private EditText etNada;
     private int selectedItem;
     private Context context;
+    private String[] songA;
 
     public Nada() {
         super();
@@ -60,6 +61,14 @@ public class Nada extends DialogFragment {
 
     public void setArray(String[] items) {
         this.items = items;
+    }
+
+    public void setSongArray(String[] songA) {
+        this.songA = songA;
+    }
+
+    public String getSongResult(int selectedItem) {
+        return songA[selectedItem];
     }
 
     public int getResult() {

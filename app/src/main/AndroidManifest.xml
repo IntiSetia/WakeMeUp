@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="id.sch.smktelkom_mlg.project.xiirpl103132333.wakemeup">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <application
         android:name="com.activeandroid.app.Application"
         android:allowBackup="true"
@@ -32,6 +34,7 @@
         </activity>
         <activity android:name=".tambahActivity"></activity>
         <activity android:name=".HitungActivity"></activity>
+        <activity android:name=".AlarmAlertMath"></activity>
         <activity
             android:name=".common.GameMethod"
             android:screenOrientation="userLandscape"
@@ -41,7 +44,9 @@
             android:name=".common.AlarmService"
             android:enabled="true"></service>
 
-        <receiver android:name=".common.AlarmBroadcastReceiver"></receiver>
+        <receiver
+            android:name=".common.AlarmBroadcastReceiver"
+            android:enabled="true"></receiver>
         <receiver
             android:name=".common.AlarmReceiver"
             android:enabled="true"

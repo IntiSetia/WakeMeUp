@@ -10,6 +10,7 @@ import com.activeandroid.Cache;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.activeandroid.query.Update;
 
@@ -102,6 +103,10 @@ public class dbAlarm extends Model {
                 .where("alarmId = ?", id)
                 .execute();
 
+    }
+
+    public void deleteAlarm(long id) {
+        new Delete().from(dbAlarm.class).where("alarmId = ?", id).execute();
     }
 }
 

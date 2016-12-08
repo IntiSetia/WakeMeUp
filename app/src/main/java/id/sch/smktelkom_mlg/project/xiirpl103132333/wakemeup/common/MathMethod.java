@@ -47,7 +47,7 @@ public class MathMethod {
         Random randGen;
         int rando;
         switch (level) {
-            case 1:
+            case 0:
                 randGen = new Random();
                 rando = randGen.nextInt(10);
                 randText = String.valueOf(rando);
@@ -59,25 +59,25 @@ public class MathMethod {
                 randText = String.valueOf(rando);
                 resNow += rando;
                 question += randText;
+                if (countQuestion == 5) isFinish = true;
+                break;
+            case 1:
+                randGen = new Random();
+                rando = randGen.nextInt(89);
+                rando += 10;
+                randText = String.valueOf(rando);
+                question = randText + " + ";
+                resNow = rando;
+
+                randGen = new Random();
+                rando = randGen.nextInt(89);
+                rando += 10;
+                randText = String.valueOf(rando);
+                question += randText;
+                resNow += rando;
                 if (countQuestion == 5) isFinish = true;
                 break;
             case 2:
-                randGen = new Random();
-                rando = randGen.nextInt(89);
-                rando += 10;
-                randText = String.valueOf(rando);
-                question = randText + " + ";
-                resNow = rando;
-
-                randGen = new Random();
-                rando = randGen.nextInt(89);
-                rando += 10;
-                randText = String.valueOf(rando);
-                question += randText;
-                resNow += rando;
-                if (countQuestion == 5) isFinish = true;
-                break;
-            case 3:
                 randGen = new Random();
                 rando = randGen.nextInt(100);
                 rando += 50;
@@ -100,7 +100,7 @@ public class MathMethod {
                 resNow -= rando;
                 if (countQuestion == 4) isFinish = true;
                 break;
-            case 4:
+            case 3:
                 randGen = new Random();
                 rando = randGen.nextInt(10);
                 rando += 5;
@@ -125,7 +125,7 @@ public class MathMethod {
                 resNow -= rando;
                 if (countQuestion == 3) isFinish = true;
                 break;
-            case 5:
+            case 4:
                 randGen = new Random();
                 rando = randGen.nextInt(50);
                 rando += 20;

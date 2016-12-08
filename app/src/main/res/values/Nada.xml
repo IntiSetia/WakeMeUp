@@ -20,7 +20,7 @@
         <item>Tom Cat</item>
     </string-array>
 
-    <string-array name="Values">
+    <string-array name="NadaValue">
         <item>air_raid</item>
         <item>antique_alarm</item>
         <item>background_music</item>

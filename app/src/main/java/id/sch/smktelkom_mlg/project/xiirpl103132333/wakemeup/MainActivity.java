@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.PopupMenu.OnMenuItemClickListener;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +43,21 @@ public class MainActivity extends AppCompatActivity
     dbAlarm db;
     private AlarmService mAlarmService;
 
+    private int moreId;
+
     public static Context getCtx() {
         return ctx;
+    }
+
+    public static int getResId(String resName, Class<?> c) {
+
+        try {
+            Field idField = c.getDeclaredField(resName);
+            return idField.getInt(idField);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     @Override
@@ -51,6 +66,11 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        ctx = this;
+        mAlarmService = new AlarmService(getCtx());
+        mServiceIntent = new Intent(getCtx(), mAlarmService.getClass());
 
         db = new dbAlarm();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.content_recycle);
@@ -88,9 +108,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ctx = this;
-        mAlarmService = new AlarmService(getCtx());
-        mServiceIntent = new Intent(getCtx(), mAlarmService.getClass());
         if (!isMyServiceRunning(mAlarmService.getClass())) {
             startService(mServiceIntent);
         }
@@ -183,6 +200,12 @@ public class MainActivity extends AppCompatActivity
 
         mAlarmList.clear();
 
+        if (!isMyServiceRunning(mAlarmService.getClass())) {
+            startService(mServiceIntent);
+        } else {
+            AlarmService.initializeTimerTask();
+        }
+
         for (int i = 0; i < dbData.size(); i++) {
             mAlarmList.add(new Alarm(dbData.get(i).getId(), dbData.get(i).hours, dbData.get(i).days,
                     dbData.get(i).ringtone, dbData.get(i).method, dbData.get(i).level, dbData.get(i).memo, dbData.get(i).isEnabled));
@@ -209,7 +232,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
     @Override
     public void doClick(int pos) {
         //Toast.makeText(this, "" + mAlarmList.get(pos).id, Toast.LENGTH_SHORT).show();
@@ -223,18 +245,28 @@ public class MainActivity extends AppCompatActivity
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_edit:
-                Toast.makeText(this, "Edit", Toast.LENGTH_SHORT).show();
+                doClick(this.moreId);
                 return true;
             case R.id.item_delete:
-                Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
+                db.deleteAlarm(mAlarmList.get(this.moreId).id);
                 return true;
             default:
                 return false;
         }
     }
+
     @Override
     public void changeSwitch(int pos, boolean state) {
         db.enDisAlarm(mAlarmList.get(pos).id, state);
         Log.i("info", "onCheckedChanged: " + state);
+    }
+
+    @Override
+    public void buttonMore(int pos, View view) {
+        PopupMenu popupMenu = new PopupMenu(MainActivity.this, view);
+        popupMenu.setOnMenuItemClickListener(MainActivity.this);
+        popupMenu.inflate(R.menu.popup_menu);
+        this.moreId = pos;
+        popupMenu.show();
     }
 }

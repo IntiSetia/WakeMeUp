@@ -121,6 +121,9 @@ public class tambahActivity extends AppCompatActivity {
                 methodDialog.setResult(selectedData.method);
                 nadaDialog.setResult(searchRingtone(selectedData.ringtone, nadaDialog.getArray()));
 
+                String[] sepHour = selectedData.hours.split(" : ");
+                mHour = Integer.parseInt(sepHour[0]);
+                mMinute = Integer.parseInt(sepHour[1]);
                 etWaktu.setText(selectedData.hours);
                 etMemo.setText(selectedData.memo);
                 etNada.setText(nadaDialog.getResultString());

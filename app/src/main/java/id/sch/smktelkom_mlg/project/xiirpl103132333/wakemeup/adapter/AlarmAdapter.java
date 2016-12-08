@@ -61,8 +61,9 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
 
     public interface IalarmAdapter {
         void doClick(int pos);
-
         void changeSwitch(int pos, boolean state);
+
+        void buttonMore(int pos, View view);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -80,6 +81,13 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
             isEnable = (Switch) itemView.findViewById(R.id.switchEnable);
             ibMore = (ImageButton) itemView.findViewById(R.id.imageButtonMore);
             rlListAlarm = (RelativeLayout) itemView.findViewById(R.id.listAlarm);
+
+            ibMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mIalarmAdapter.buttonMore(getAdapterPosition(), v);
+                }
+            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
